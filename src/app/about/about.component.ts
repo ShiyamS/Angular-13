@@ -7,12 +7,14 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent {
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
 
   GoToHome() {
+    this.router.navigate(['Home'], { relativeTo: this.activatedRoute });
+    // this.router.navigateByUrl('Home');
     //this.router.navigate(['Home'], {relativeTo: this.route})//localhost:4200/About/Home
   }
 }
