@@ -10,6 +10,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './courses/course/course/course.component';
 import { CoursesService } from './services/courses.service';
 import { ErrorComponent } from './error/error.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ErrorComponent } from './error/error.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [CoursesService],
   bootstrap: [AppComponent]

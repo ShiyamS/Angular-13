@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { CoursesService } from 'src/app/services/courses.service';
 
@@ -9,10 +9,12 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit, OnDestroy {
-  constructor(private service: CoursesService, private route: ActivatedRoute) { }
+  constructor(private service: CoursesService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   course: any;
   courseId: any;
+
+  editMode: boolean = false
   private readonly destory = new Subject<boolean>();
 
   ngOnInit(): void {
@@ -27,16 +29,29 @@ export class CourseComponent implements OnInit, OnDestroy {
     //this.courseId = this.route.snapshot.params['name'];
     // this.course = this.service.courses.find(x => x.id == this.courseId);
 
-
-
     //  If the Param ID will be chnaging during the course of time try to use Param and subscribe
 
-    this.route.paramMap
+    this.activatedRoute.paramMap
       .pipe(takeUntil(this.destory))
       .subscribe((param) => {
         this.courseId = param.get('id');
         this.course = this.service.courses.find((x) => x.id == this.courseId)
       })
+
+    this.activatedRoute.queryParamMap.subscribe((param) => {
+      this.editMode = Boolean(param.get('edit'));
+      console.log(this.editMode)
+    })
+  }
+
+
+  onEdit() {
+    this.router.navigate(['/Courses/Course', this.courseId], { queryParams: { edit: true } })
+
+  }
+
+  onUpdate() {
+    this.router.navigate(['/Courses/Course', this.courseId])
   }
 
 
