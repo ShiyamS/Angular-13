@@ -10,17 +10,12 @@ import { CoursesService } from 'src/app/services/courses.service';
 })
 export class CourseComponent implements OnInit, OnDestroy {
   constructor(private service: CoursesService, private activatedRoute: ActivatedRoute, private router: Router) { }
-
   course: any;
   courseId: any;
-
   editMode: boolean = false
   private readonly destory = new Subject<boolean>();
-
   ngOnInit(): void {
     // Use Snapshot when u think they wont by any change in any course of time for the Param ID
-
-
     // This is the better way to get the ID
     // this.courseId = this.route.snapshot.paramMap.get('id');
 
@@ -44,17 +39,13 @@ export class CourseComponent implements OnInit, OnDestroy {
     })
   }
 
-
   onEdit() {
     this.router.navigate(['/Courses/Course', this.courseId], { queryParams: { edit: true } })
-
   }
 
   onUpdate() {
     this.router.navigate(['/Courses/Course', this.courseId])
   }
-
-
   ngOnDestroy(): void {
     console.log("course comp destroyed")
     this.destory.next(true);
