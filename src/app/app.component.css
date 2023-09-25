@@ -1,6 +1,11 @@
 .main-container {
   width: 960px;
-  margin: 10px auto;
+  margin: 0px auto;
+}
+
+.nav-container {
+  position: fixed;
+  min-width: 960px;
 }
 ul {
   list-style-type: none;
