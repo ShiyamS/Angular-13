@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'routing';
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, private authUser: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.fragment.subscribe((value) => {
@@ -24,5 +25,14 @@ export class AppComponent implements OnInit {
 
   smoothScroll(id: string) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  logIn() {
+    this.authUser.login();
+  }
+
+  logOut() {
+    this.authUser.logOut();
+    this.router.navigate(['']);
   }
 }

@@ -6,12 +6,13 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { ErrorComponent } from './error/error.component';
 import { CourseComponent } from './courses/course/course/course.component';
+import { CourseGuardService } from './services/course-guard.service';
 
 const routes: Routes = [
   // { path: '', component: HomeComponent },
   { path: '', redirectTo: 'Home', pathMatch: 'full' },
   { path: 'Home', component: HomeComponent },
-  { path: 'Courses', component: CoursesComponent },
+  { path: 'Courses', component: CoursesComponent, canActivate: [CourseGuardService] },
   // { path: 'Courses/Course/:id', component: CourseComponent },
   {
     path: 'Courses', children: [
