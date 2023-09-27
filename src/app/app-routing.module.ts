@@ -12,11 +12,14 @@ const routes: Routes = [
   // { path: '', component: HomeComponent },
   { path: '', redirectTo: 'Home', pathMatch: 'full' },
   { path: 'Home', component: HomeComponent },
-  { path: 'Courses', component: CoursesComponent, canActivate: [CourseGuardService] },
+  { path: 'Courses', component: CoursesComponent },
   // { path: 'Courses/Course/:id', component: CourseComponent },
   {
-    path: 'Courses', children: [
-      { path: "Course/:id", component: CourseComponent }]
+    path: 'Courses', canActivateChild: [CourseGuardService], children: [
+      {
+        path: "Course/:id", component: CourseComponent,
+        // canActivate:[CourseGuardService]
+      }]
   },
   { path: 'About', component: AboutComponent },
   { path: 'Contact', component: ContactComponent },
