@@ -13,6 +13,7 @@ import { ErrorComponent } from './error/error.component';
 import { FormsModule } from '@angular/forms';
 import { CourseGuardService } from './services/course-guard.service';
 import { AuthService } from './services/auth.service';
+import { CanDeactiveGuardService } from './services/candeactivate-guard.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { AuthService } from './services/auth.service';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [CoursesService, CourseGuardService, AuthService],
+  providers: [CoursesService, CourseGuardService, AuthService, CanDeactiveGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

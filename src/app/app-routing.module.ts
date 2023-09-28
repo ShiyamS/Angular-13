@@ -7,6 +7,7 @@ import { ContactComponent } from './contact/contact.component';
 import { ErrorComponent } from './error/error.component';
 import { CourseComponent } from './courses/course/course/course.component';
 import { CourseGuardService } from './services/course-guard.service';
+import { CanDeactiveGuardService } from './services/candeactivate-guard.service';
 
 const routes: Routes = [
   // { path: '', component: HomeComponent },
@@ -22,7 +23,7 @@ const routes: Routes = [
       }]
   },
   { path: 'About', component: AboutComponent },
-  { path: 'Contact', component: ContactComponent },
+  { path: 'Contact', canDeactivate: [CanDeactiveGuardService], component: ContactComponent },
   { path: '**', component: ErrorComponent }
 ];
 
