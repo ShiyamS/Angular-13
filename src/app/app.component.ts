@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'routing';
+
+  spinnerDiv = false;
 
   constructor(private activatedRoute: ActivatedRoute, private authUser: AuthService, private router: Router) { }
 
@@ -20,6 +22,17 @@ export class AppComponent implements OnInit {
       }
 
     });
+
+
+    this.router.events.subscribe((route: Event) => {
+      if (route instanceof NavigationStart) {
+        this.spinnerDiv = true;
+      }
+
+      if (route instanceof NavigationEnd || route instanceof NavigationCancel || route instanceof NavigationError) {
+        this.spinnerDiv = false;
+      }
+    })
   }
 
 

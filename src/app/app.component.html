@@ -24,10 +24,13 @@
     </ul>
   </div>
   <div class="component-container">
-    <!-- <app-home id="Home"></app-home>
+    <!-- <app-home id=" Home"></app-home>
     <app-about id="About"></app-about>
     <app-contact id="Contact"></app-contact>
     <app-courses id="Courses"></app-courses> -->
     <router-outlet></router-outlet>
+
+    <div class="spinner" *ngIf="spinnerDiv"></div>
+
   </div>
 </div>
