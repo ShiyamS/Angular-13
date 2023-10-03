@@ -70,3 +70,10 @@ li a:hover {
     transform: rotate(0deg);
   }
 }
+
+.inputBox {
+  margin: 10px 14.5%;
+  width: 420px;
+  padding: 10px 20px;
+  
+}

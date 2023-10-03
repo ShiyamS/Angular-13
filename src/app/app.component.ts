@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   students!: Student[];
   totalMarks!: number;
   title = 'routing';
+  filterTextValue: string = "";
 
   spinnerDiv = false;
 

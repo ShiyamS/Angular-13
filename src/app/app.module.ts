@@ -17,6 +17,7 @@ import { CanDeactiveGuardService } from './services/candeactivate-guard.service'
 import { CourseResolverService } from './services/course-resolve.service';
 import { StudentsService } from './services/students.service';
 import { Percentage } from './percentage.pipe';
+import { Filter } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { Percentage } from './percentage.pipe';
     CoursesComponent,
     CourseComponent,
     ErrorComponent,
-    Percentage
+    Percentage,
+    Filter
   ],
   imports: [
     BrowserModule,
