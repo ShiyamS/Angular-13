@@ -15,6 +15,8 @@ import { CourseGuardService } from './services/course-guard.service';
 import { AuthService } from './services/auth.service';
 import { CanDeactiveGuardService } from './services/candeactivate-guard.service';
 import { CourseResolverService } from './services/course-resolve.service';
+import { StudentsService } from './services/students.service';
+import { Percentage } from './percentage.pipe';
 
 @NgModule({
   declarations: [
@@ -25,13 +27,14 @@ import { CourseResolverService } from './services/course-resolve.service';
     CoursesComponent,
     CourseComponent,
     ErrorComponent,
+    Percentage
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [CoursesService, CourseGuardService, AuthService, CanDeactiveGuardService, CourseResolverService],
+  providers: [CoursesService, CourseGuardService, AuthService, CanDeactiveGuardService, CourseResolverService, StudentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

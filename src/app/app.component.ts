@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { StudentsService } from './services/students.service';
+import { Student } from './student';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +10,23 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  students!: Student[];
+  totalMarks!: number;
   title = 'routing';
 
   spinnerDiv = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private authUser: AuthService, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private authUser: AuthService, private router: Router, private StudentService: StudentsService) { }
+
+
 
   ngOnInit(): void {
+
+    this.students = this.StudentService.students;
+    this.totalMarks = this.StudentService.totalMarks;
+
+
     this.activatedRoute.fragment.subscribe((value) => {
       // console.log(value)
       if (value) {
@@ -22,7 +34,6 @@ export class AppComponent implements OnInit {
       }
 
     });
-
 
     this.router.events.subscribe((route: Event) => {
       if (route instanceof NavigationStart) {
@@ -33,7 +44,11 @@ export class AppComponent implements OnInit {
         this.spinnerDiv = false;
       }
     })
+
+
   }
+
+
 
 
   smoothScroll(id: string) {

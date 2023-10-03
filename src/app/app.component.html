@@ -1,36 +1,61 @@
-<div class="main-container">
+<!-- <div class="main-container">
   <div class="nav-container">
-    <ul>
+    <ul> -->
 
-      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="">Home</a></li>
-      <!-- localhost:4200/Home -->
-      <li routerLinkActive="active"><a [routerLink]="'About'">About</a></li>
-      <!-- localhost:4200/About -->
-      <li routerLinkActive="active"><a [routerLink]="['Contact']">Contact</a></li>
-      <!-- localhost:4200/Contact -->
-      <li routerLinkActive="active"><a routerLink="/Courses">Courses</a></li>
-      <!-- localhost:4200/Courses -->
+<!-- <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="">Home</a></li> -->
+<!-- localhost:4200/Home -->
+<!-- <li routerLinkActive="active"><a [routerLink]="'About'">About</a></li> -->
+<!-- localhost:4200/About -->
+<!-- <li routerLinkActive="active"><a [routerLink]="['Contact']">Contact</a></li> -->
+<!-- localhost:4200/Contact -->
+<!-- <li routerLinkActive="active"><a routerLink="/Courses">Courses</a></li> -->
+<!-- localhost:4200/Courses -->
 
-      <!-- <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="" fragment="Home">Home</a>
+<!-- <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="" fragment="Home">Home</a>
       </li> -->
-      <!-- localhost:4200/Home -->
-      <!-- <li routerLinkActive="active"><a routerLink="" fragment="About">About</a></li>localhost:4200/About -->
-      <!-- <li routerLinkActive="active"><a routerLink="" fragment="Contact">Contact</a></li>localhost:4200/Contact -->
-      <!-- <li routerLinkActive="active"><a routerLink="" fragment="Courses">Courses</a></li>localhost:4200/Courses -->
-      <span style="float: right;">
-        <li (click)="logIn()"><a>LogIn</a></li>
-        <li (click)="logOut()"><a>LogOut</a></li>
-      </span>
-    </ul>
-  </div>
-  <div class="component-container">
-    <!-- <app-home id=" Home"></app-home>
+<!-- localhost:4200/Home -->
+<!-- <li routerLinkActive="active"><a routerLink="" fragment="About">About</a></li>localhost:4200/About -->
+<!-- <li routerLinkActive="active"><a routerLink="" fragment="Contact">Contact</a></li>localhost:4200/Contact -->
+<!-- <li routerLinkActive="active"><a routerLink="" fragment="Courses">Courses</a></li>localhost:4200/Courses -->
+<!-- <span style="float: right;"> -->
+<!-- <li (click)="logIn()"><a>LogIn</a></li> -->
+<!-- <li (click)="logOut()"><a>LogOut</a></li> -->
+<!-- </span> -->
+<!-- </ul> -->
+<!-- </div> -->
+<!-- <div class="component-container"> -->
+<!-- <app-home id=" Home"></app-home>
     <app-about id="About"></app-about>
     <app-contact id="Contact"></app-contact>
     <app-courses id="Courses"></app-courses> -->
-    <router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
 
-    <div class="spinner" *ngIf="spinnerDiv"></div>
+<!-- <div class="spinner" *ngIf="spinnerDiv"></div> -->
 
-  </div>
+<!-- </div> -->
+<!-- </div> -->
+
+<div class="container">
+  <table id="student">
+    <tr>
+      <th>Name</th>
+      <th>Course</th>
+      <th>Marks</th>
+      <th>Percentage</th>
+      <th>DOB</th>
+      <th>Gender</th>
+    </tr>
+    <tr *ngFor="let student of students">
+      <td>{{student.name}}</td>
+      <td>{{student.course}}</td>
+      <td>{{student.marks}}</td>
+      <!-- Pipe percentage -->
+      <!-- <td>{{student.marks / totalMarks | percent : '1.1-1'}}</td> -->
+      <!-- Pipe durrency -->
+      <!-- <td>{{student.marks / totalMarks | currency:'INR' }}</td> -->
+      <td>{{student.marks | percentage : totalMarks : 3 }}</td>
+      <td>{{student.DOB | date : 'fullDate' | lowercase}}</td>
+      <td>{{student.gender | uppercase}}</td>
+    </tr>
+  </table>
 </div>

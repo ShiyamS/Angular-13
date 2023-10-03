@@ -3,6 +3,21 @@
   margin: 0px auto;
 }
 
+#student {
+  margin: 30px auto;
+}
+#student tr {
+  /* padding: 40px; */
+  background-color: #b4dae2;
+}
+#student th {
+  padding: 10px;
+  background-color: #c4ddc5;
+}
+
+#student td {
+  padding: 20px;
+}
 /* .nav-container {
   position: fixed;
   min-width: 960px;
@@ -31,6 +46,9 @@ li a {
 li a:hover {
   background-color: #111;
 }
+.grey-background {
+  background-color: gray;
+}
 
 .spinner {
   border: 16px solid silver;
@@ -42,10 +60,6 @@ li a:hover {
   top: 50%;
   left: 50%;
   position: absolute;
-}
-
-.grey-background {
-  background-color: gray;
 }
 
 @keyframes spin {
