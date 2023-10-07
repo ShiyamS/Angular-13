@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
     this.totalMarks = this.StudentService.totalMarks;
 
 
+
     this.activatedRoute.fragment.subscribe((value) => {
       // console.log(value)
       if (value) {
@@ -46,6 +47,48 @@ export class AppComponent implements OnInit {
       }
     })
 
+
+  }
+
+  addFakeStudentData() {
+    // let studentCopy = Object.assign([], this.students);
+    // studentCopy.push({
+    //   name: 'Test 9',
+    //   course: 'MCA - Full Stack',
+    //   marks: 345,
+    //   DOB: new Date(),
+    //   gender: 'Male',
+    // })
+    // Once a fake copy is created, and then the value is re assigned in order to reflect the data
+    // If manipulate the reference data, its doses not reflects and become a impure pipe
+    // this.students = studentCopy;
+
+    //Impure Pipe
+
+    this.students.push({
+      name: 'Test 9',
+      course: 'MCA - Full Stack',
+      marks: 345,
+      DOB: new Date(),
+      gender: 'Male',
+    })
+  }
+
+
+  changeGender() {
+    // This become an inpur change as the main student data in not refelecting the change during filtering.
+    // this.StudentService.students[0].gender = "Female"
+
+    // let studentCopy2: Student[] = Object.assign([], this.students);
+    // studentCopy2[0].gender = 'female';
+    // this.students = studentCopy2;
+
+    //Impure change
+    this.students[0].gender = "Female"
+
+  }
+
+  onMouseMove() {
 
   }
 

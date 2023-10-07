@@ -35,7 +35,7 @@
 <!-- </div> -->
 <!-- </div> -->
 
-<div class="container">
+<div class="container" (mousemove)="onMouseMove()">
   <div>
     <input type="text" class="inputBox" placeholder="Enter text to filter data" [(ngModel)]="filterTextValue">
   </div>
@@ -51,7 +51,7 @@
     <tr *ngFor="let student of students | filterStudent :filterTextValue ">
       <td>{{student.name}}</td>
       <td>{{student.course}}</td>
-      <td>{{student.marks}}</td>
+      <td><input type="number" value="student.marks" [(ngModel)]="student.marks"></td>
       <!-- Pipe percentage -->
       <!-- <td>{{student.marks / totalMarks | percent : '1.1-1'}}</td> -->
       <!-- Pipe durrency -->
@@ -60,5 +60,9 @@
       <td>{{student.DOB | date : 'fullDate' | lowercase}}</td>
       <td>{{student.gender | uppercase}}</td>
     </tr>
+
+    <button (click)="addFakeStudentData()">Add student</button>
+    <br>
+    <button (click)="changeGender()"> Change Gender</button>
   </table>
 </div>
