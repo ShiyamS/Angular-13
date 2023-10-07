@@ -35,7 +35,7 @@
 <!-- </div> -->
 <!-- </div> -->
 
-<div class="container" (mousemove)="onMouseMove()">
+<div class="container">
   <div>
     <input type="text" class="inputBox" placeholder="Enter text to filter data" [(ngModel)]="filterTextValue">
   </div>
@@ -48,7 +48,7 @@
       <th>DOB</th>
       <th>Gender</th>
     </tr>
-    <tr *ngFor="let student of students | filterStudent :filterTextValue ">
+    <tr *ngFor="let student of filteredStudents">
       <td>{{student.name}}</td>
       <td>{{student.course}}</td>
       <td><input type="number" value="student.marks" [(ngModel)]="student.marks"></td>

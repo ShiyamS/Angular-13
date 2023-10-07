@@ -12,20 +12,41 @@ import { Student } from './student';
 export class AppComponent implements OnInit {
 
   students!: Student[];
+  filteredStudents!: Student[];
   totalMarks!: number;
   title = 'routing';
-  filterTextValue: string = "";
+  _filterTextValue: string = "";
 
   spinnerDiv = false;
 
   constructor(private activatedRoute: ActivatedRoute, private authUser: AuthService, private router: Router, private StudentService: StudentsService) { }
 
 
+  get filterTextValue() {
+    return this._filterTextValue;
+  }
+
+  set filterTextValue(filteredValue: string) {
+    this._filterTextValue = filteredValue;
+    this.filteredStudents = this.filteredStudentByGender(filteredValue);
+  }
+
+  filteredStudentByGender(filteredValue: string) {
+    if (this.filterTextValue === "" || this.students.length == 0) {
+      return this.students
+    } else {
+      return this.students.filter((student) => {
+        return student.gender.toLowerCase() === filteredValue.toLowerCase();
+      })
+    }
+  }
 
   ngOnInit(): void {
 
     this.students = this.StudentService.students;
     this.totalMarks = this.StudentService.totalMarks;
+
+    this.filteredStudents = this.students;
 
 
 
@@ -72,6 +93,8 @@ export class AppComponent implements OnInit {
       DOB: new Date(),
       gender: 'Male',
     })
+
+    this.filteredStudents = this.filteredStudentByGender(this._filterTextValue);
   }
 
 
@@ -85,6 +108,7 @@ export class AppComponent implements OnInit {
 
     //Impure change
     this.students[0].gender = "Female"
+    this.filteredStudents = this.filteredStudentByGender(this._filterTextValue);
 
   }
 
