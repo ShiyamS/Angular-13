@@ -17,6 +17,12 @@ export class AppComponent implements OnInit {
   title = 'routing';
   _filterTextValue: string = "";
 
+  totalStudents = new Promise<number>((resolve, reject) => {
+    setTimeout(() => {
+      resolve(this.filteredStudents.length)
+    }, 2000)
+  })
+
   spinnerDiv = false;
 
   constructor(private activatedRoute: ActivatedRoute, private authUser: AuthService, private router: Router, private StudentService: StudentsService) { }
@@ -85,7 +91,6 @@ export class AppComponent implements OnInit {
     // this.students = studentCopy;
 
     //Impure Pipe
-
     this.students.push({
       name: 'Test 9',
       course: 'MCA - Full Stack',
@@ -96,7 +101,6 @@ export class AppComponent implements OnInit {
 
     this.filteredStudents = this.filteredStudentByGender(this._filterTextValue);
   }
-
 
   changeGender() {
     // This become an inpur change as the main student data in not refelecting the change during filtering.
