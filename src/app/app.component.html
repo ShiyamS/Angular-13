@@ -34,13 +34,12 @@
 
 <!-- </div> -->
 <!-- </div> -->
-
-<div class="container">
-  <div>
+<!-- <div class="container"> -->
+<!-- <div>
     <input type="text" class="inputBox" placeholder="Enter text to filter data" [(ngModel)]="filterTextValue">
-  </div>
-  <h2>Total Students: {{totalStudents}}</h2>
-  <table id="student">
+  </div> -->
+<!-- <h2>Total Students: {{totalStudents}}</h2> -->
+<!-- <table id="student">
 
     <tr>
       <th>Name</th>
@@ -54,12 +53,12 @@
     <tr *ngFor="let student of filteredStudents">
       <td>{{student.name}}</td>
       <td>{{student.course}}</td>
-      <td><input type="number" value="student.marks" [(ngModel)]="student.marks"></td>
-      <!-- Pipe percentage -->
-      <!-- <td>{{student.marks / totalMarks | percent : '1.1-1'}}</td> -->
-      <!-- Pipe durrency -->
-      <!-- <td>{{student.marks / totalMarks | currency:'INR' }}</td> -->
-      <td>{{student.marks | percentage : totalMarks : 3 }}</td>
+      <td><input type="number" value="student.marks" [(ngModel)]="student.marks"></td>  -->
+<!-- Pipe percentage -->
+<!-- <td>{{student.marks / totalMarks | percent : '1.1-1'}}</td> -->
+<!-- Pipe durrency -->
+<!-- <td>{{student.marks / totalMarks | currency:'INR' }}</td> -->
+<!-- <td>{{student.marks | percentage : totalMarks : 3 }}</td>
       <td>{{student.DOB | date : 'fullDate' | lowercase}}</td>
       <td>{{student.gender | uppercase}}</td>
     </tr>
@@ -67,5 +66,29 @@
     <button (click)="addFakeStudentData()">Add student</button>
     <br>
     <button (click)="changeGender()"> Change Gender</button>
-  </table>
+  </table> -->
+<!-- </div> -->
+
+<!-- Template From -->
+
+<div class="form-container">
+  <h2>Example Form</h2>
+  <form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required ngModel>
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" required ngModel>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" required ngModel>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required ngModel>
+
+    <label for="message">Message:</label>
+    <input type="text" id="message" name="message" required ngModel>
+
+    <input type="submit" value="Submit">
+  </form>
 </div>
