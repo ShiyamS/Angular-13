@@ -74,18 +74,25 @@
 <div class="form-container">
   <h2>Example Form</h2>
   <form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required ngModel #fname="ngModel">
-    <div>
-      <small *ngIf="fname.invalid && fname.touched">Firstname is a required field</small>
-    </div>
+    <div ngModelGroup="personalDetails" #personalDetails="ngModelGroup">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required ngModel #fname="ngModel">
+      <!-- <div>
+        <small *ngIf="fname.invalid && fname.touched">Firstname is a required field</small>
+      </div> -->
 
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email" required ngModel #lname="ngModel">
-    <div>
-      <small *ngIf="lname.invalid && lname.touched">Lastname is a required field</small>
-    </div>
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" required ngModel #lname="ngModel">
+      <!-- <div>
+        <small *ngIf="lname.invalid && lname.touched">Lastname is a required field</small>
+      </div> -->
 
+      <div>
+        <small *ngIf="personalDetails.invalid && personalDetails.touched">Some of the field value are not
+          updated.</small>
+      </div>
+
+    </div>
     <label for="phone">Phone:</label>
     <input type="text" id="phone" name="phone" required ngModel>
 
