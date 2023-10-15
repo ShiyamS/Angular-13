@@ -141,7 +141,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() { }
 
+  defaultGender = 'Male'
+
   onSubmit(form: NgForm) {
     console.log(form)
   }
+
+  gender: any = [
+    { id: 1, value: 'Male' },
+    { id: 2, value: 'Female' },
+    { id: 3, value: 'Other' },
+  ]
 }

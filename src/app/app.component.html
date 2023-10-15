@@ -102,6 +102,15 @@
     <label for="message">Message:</label>
     <input type="text" id="message" name="message" ngModel>
 
+    <label for="html">Gender : </label>
+    <span *ngFor="let gen of gender">
+      <input type="radio" id="{{gen.id}}" name="gender" value="{{gen.value}}" [ngModel]="defaultGender">
+      <label for="gender">{{gen.value}}</label>
+    </span>
+
+
+
+
     <input type="submit" value="Submit" [disabled]="!myForm.valid">
   </form>
 </div>
