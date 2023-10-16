@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { StudentsService } from './services/students.service';
@@ -142,9 +142,27 @@ export class AppComponent implements OnInit {
   ngOnInit() { }
 
   defaultGender = 'Male'
+  @ViewChild('myForm') form!: NgForm;
+  name!: string;
+  email!: string;
+  phone!: number;
+  address!: string;
+  message!: string;
+  gen!: string;
 
-  onSubmit(form: NgForm) {
-    console.log(form)
+  onSubmit() {
+    console.log(this.form)
+
+    this.name = this.form.value.personalDetails.name;
+    this.email = this.form.value.personalDetails.email;
+    this.phone = this.form.value.phone;
+    this.address = this.form.value.address;
+    this.message = this.form.value.message;
+    this.gen = this.form.value.gender;
+
+
+    this.form.reset();
+
   }
 
   gender: any = [
@@ -152,4 +170,35 @@ export class AppComponent implements OnInit {
     { id: 2, value: 'Female' },
     { id: 3, value: 'Other' },
   ]
+
+
+  setDefaultValue() {
+
+    // While trying to set, it set the value in the Form -> but it ll not be visible for user
+    // this.form.value.personalDetails.name = "Jyothi"
+    // this.form.value.personalDetails.email = "jyothi31@gmail.com"
+
+    // setValue
+    // if existing value are already set and then we click on the setValue -> it set only the value mentioned
+    // in the setValue
+    // this.form.setValue({
+    //   address: '',
+    //   gender: '',
+    //   message: '',
+    //   phone: '',
+    //   personalDetails: {
+    //     name: 'Jyothi',
+    //     email: 'jyothi31@gmail.com'
+    //   }
+    // })
+
+    //patchValue
+    // It usefull to specify on the specific value
+    this.form.form.patchValue({
+      personalDetails: {
+        name: 'Jyothi',
+        email: 'jyothi31@gmail.com'
+      }
+    })
+  }
 }

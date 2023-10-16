@@ -73,7 +73,7 @@
 
 <div class="form-container">
   <h2>Example Form</h2>
-  <form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
+  <form (ngSubmit)="onSubmit()" #myForm="ngForm">
     <div ngModelGroup="personalDetails" #personalDetails="ngModelGroup">
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required ngModel #fname="ngModel">
@@ -92,6 +92,8 @@
           updated.</small>
       </div>
 
+      <button (click)="setDefaultValue()">Set default value</button>
+
     </div>
     <label for="phone">Phone:</label>
     <input type="text" id="phone" name="phone" required ngModel>
@@ -107,10 +109,15 @@
       <input type="radio" id="{{gen.id}}" name="gender" value="{{gen.value}}" [ngModel]="defaultGender">
       <label for="gender">{{gen.value}}</label>
     </span>
-
-
-
-
     <input type="submit" value="Submit" [disabled]="!myForm.valid">
   </form>
 </div>
+
+<div class="form-container">
+  <p><b>Name : </b>{{name}}</p><br>
+  <p><b>Email : </b>{{email}}</p><br>
+  <p><b>Phone : </b>{{phone}}</p><br>
+  <p><b>Address : </b>{{address}}</p><br>
+  <p><b>Message : </b>{{message}}</p><br>
+  <p><b>Gender : </b>{{gen}}</p>
+</div><b> </b>
