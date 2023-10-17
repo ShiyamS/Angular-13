@@ -10,7 +10,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './courses/course/course/course.component';
 import { CoursesService } from './services/courses.service';
 import { ErrorComponent } from './error/error.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CourseGuardService } from './services/course-guard.service';
 import { AuthService } from './services/auth.service';
 import { CanDeactiveGuardService } from './services/candeactivate-guard.service';
@@ -34,7 +34,8 @@ import { Filter } from './filter.pipe';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [CoursesService, CourseGuardService, AuthService, CanDeactiveGuardService, CourseResolverService, StudentsService],
   bootstrap: [AppComponent]

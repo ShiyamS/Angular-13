@@ -3,7 +3,7 @@ import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError
 import { AuthService } from './services/auth.service';
 import { StudentsService } from './services/students.service';
 import { Student } from './student';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgFor } from '@angular/common';
 
 @Component({
@@ -139,31 +139,29 @@ export class AppComponent implements OnInit {
   // }
   // Template Form
 
-  ngOnInit() { }
+  // defaultGender = 'Male'
+  // @ViewChild('myForm') form!: NgForm;
+  // name!: string;
+  // email!: string;
+  // phone!: number;
+  // address!: string;
+  // message!: string;
+  // gen!: string;
 
-  defaultGender = 'Male'
-  @ViewChild('myForm') form!: NgForm;
-  name!: string;
-  email!: string;
-  phone!: number;
-  address!: string;
-  message!: string;
-  gen!: string;
+  // onSubmit() {
+  //   console.log(this.form)
 
-  onSubmit() {
-    console.log(this.form)
-
-    this.name = this.form.value.personalDetails.name;
-    this.email = this.form.value.personalDetails.email;
-    this.phone = this.form.value.phone;
-    this.address = this.form.value.address;
-    this.message = this.form.value.message;
-    this.gen = this.form.value.gender;
+  //   this.name = this.form.value.personalDetails.name;
+  //   this.email = this.form.value.personalDetails.email;
+  //   this.phone = this.form.value.phone;
+  //   this.address = this.form.value.address;
+  //   this.message = this.form.value.message;
+  //   this.gen = this.form.value.gender;
 
 
-    this.form.reset();
+  //   this.form.reset();
 
-  }
+  // }
 
   gender: any = [
     { id: 1, value: 'Male' },
@@ -172,33 +170,55 @@ export class AppComponent implements OnInit {
   ]
 
 
-  setDefaultValue() {
+  // setDefaultValue() {
 
-    // While trying to set, it set the value in the Form -> but it ll not be visible for user
-    // this.form.value.personalDetails.name = "Jyothi"
-    // this.form.value.personalDetails.email = "jyothi31@gmail.com"
+  // While trying to set, it set the value in the Form -> but it ll not be visible for user
+  // this.form.value.personalDetails.name = "Jyothi"
+  // this.form.value.personalDetails.email = "jyothi31@gmail.com"
 
-    // setValue
-    // if existing value are already set and then we click on the setValue -> it set only the value mentioned
-    // in the setValue
-    // this.form.setValue({
-    //   address: '',
-    //   gender: '',
-    //   message: '',
-    //   phone: '',
-    //   personalDetails: {
-    //     name: 'Jyothi',
-    //     email: 'jyothi31@gmail.com'
-    //   }
-    // })
+  // setValue
+  // if existing value are already set and then we click on the setValue -> it set only the value mentioned
+  // in the setValue
+  // this.form.setValue({
+  //   address: '',
+  //   gender: '',
+  //   message: '',
+  //   phone: '',
+  //   personalDetails: {
+  //     name: 'Jyothi',
+  //     email: 'jyothi31@gmail.com'
+  //   }
+  // })
 
-    //patchValue
-    // It usefull to specify on the specific value
-    this.form.form.patchValue({
-      personalDetails: {
-        name: 'Jyothi',
-        email: 'jyothi31@gmail.com'
-      }
+  //patchValue
+  // It usefull to specify on the specific value
+  //   this.form.form.patchValue({
+  //     personalDetails: {
+  //       name: 'Jyothi',
+  //       email: 'jyothi31@gmail.com'
+  //     }
+  //   })
+  // }
+
+
+  //  Reactive Form
+
+  reactiveForm!: FormGroup;
+
+  ngOnInit() {
+    this.reactiveForm = new FormGroup({
+      personalDetails: new FormGroup({
+        name: new FormControl(null, Validators.required),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+      }),
+      phone: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
+      address: new FormControl(null),
+      message: new FormControl('Random Message'),
+      gen: new FormControl('Male'),
     })
+  }
+
+  onSubmit() {
+    console.log(this.reactiveForm);
   }
 }
