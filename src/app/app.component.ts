@@ -208,8 +208,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.reactiveForm = new FormGroup({
       personalDetails: new FormGroup({
-        name: new FormControl(null, Validators.required),
-        email: new FormControl(null, [Validators.required, Validators.email]),
+        name: new FormControl(null, [Validators.required, this.errorCheck]),
+        email: new FormControl(null, [Validators.required, Validators.email, this.errorCheck]),
       }),
       phone: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
       address: new FormControl(null),
@@ -227,5 +227,15 @@ export class AppComponent implements OnInit {
 
   addSkill() {
     (<FormArray>this.reactiveForm.get('skills')).push(new FormControl(null, Validators.required))
+  }
+
+  // Custom Validators
+  errorCheck(control: FormControl) {
+
+    if (control.value != null && control.value.indexOf(' ') != -1) {
+      return { spaceAllowed: true }
+    }
+    return null;
+
   }
 }

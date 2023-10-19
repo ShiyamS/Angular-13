@@ -77,6 +77,15 @@
     <div formGroupName="personalDetails">
       <label for="name">Name:</label>
       <input type="text" id="name" formControlName="name">
+      <div>
+        <small
+          *ngIf="reactiveForm.get('personalDetails.name').errors?.['required'] && reactiveForm.get('personalDetails.name').touched">This
+          is a req field
+        </small>
+        <small *ngIf="reactiveForm.get('personalDetails.name').errors?.['spaceAllowed']">Field should not countain
+          space
+        </small>
+      </div>
       <!-- <div>
         <small *ngIf="fname.invalid && fname.touched">Firstname is a required field</small>
       </div> -->
@@ -125,9 +134,11 @@
     </div>
 
 
-    <input type="submit" value="Submit" [disabled]="!reactiveForm.valid">
+    <input type="submit" value="Submit">
   </form>
 </div>
+
+<!-- [disabled]="!reactiveForm.valid" -->
 
 <!-- <div class="form-container">
   <p><b>Name : </b>{{name}}</p><br>
