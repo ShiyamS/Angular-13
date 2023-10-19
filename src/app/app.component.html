@@ -114,6 +114,17 @@
       <input type="radio" id="{{gen.id}}" formControlName="gen" value="{{gen.value}}">
       <label for="gender">{{gen.value}}</label>
     </span>
+
+    <div formArrayName="skills">
+      <label for="skills">Skills</label>
+      <ng-container *ngFor="let skill of reactiveForm.get('skills')['controls']; index  as i ">
+        <input type="text" placeholder="add skills" formControlName="{{i}}" id="skill">
+      </ng-container>
+      <button (click)="addSkill()">+ Add Skill</button>
+      <br>
+    </div>
+
+
     <input type="submit" value="Submit" [disabled]="!reactiveForm.valid">
   </form>
 </div>

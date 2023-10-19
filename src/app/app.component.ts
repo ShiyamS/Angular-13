@@ -3,7 +3,7 @@ import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError
 import { AuthService } from './services/auth.service';
 import { StudentsService } from './services/students.service';
 import { Student } from './student';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgFor } from '@angular/common';
 
 @Component({
@@ -215,10 +215,17 @@ export class AppComponent implements OnInit {
       address: new FormControl(null),
       message: new FormControl('Random Message'),
       gen: new FormControl('Male'),
+      skills: new FormArray([
+        new FormControl(null, Validators.required),
+      ])
     })
   }
 
   onSubmit() {
     console.log(this.reactiveForm);
+  }
+
+  addSkill() {
+    (<FormArray>this.reactiveForm.get('skills')).push(new FormControl(null, Validators.required))
   }
 }
