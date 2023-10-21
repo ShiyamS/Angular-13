@@ -205,6 +205,7 @@ export class AppComponent implements OnInit {
   //  Reactive Form
 
   reactiveForm!: FormGroup;
+  statusChange;
 
   ngOnInit() {
     this.reactiveForm = new FormGroup({
@@ -219,6 +220,18 @@ export class AppComponent implements OnInit {
       skills: new FormArray([
         new FormControl(null, Validators.required),
       ])
+    })
+
+    // Value chnage for a specific Form Control
+    // this.reactiveForm.get('personalDetails.name').valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // })
+
+    // Status Chnages of a Form If its valid or In valid !
+
+    this.reactiveForm.statusChanges.subscribe((value) => {
+      // console.log(value);
+      this.statusChange = value;
     })
   }
 

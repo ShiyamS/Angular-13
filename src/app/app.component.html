@@ -71,7 +71,7 @@
 
 <!-- Template From -->
 
-<div class="form-container">
+<div class="form-container myForm" [ngClass]="statusChange">
   <h2>Example Form</h2>
   <form (ngSubmit)="onSubmit()" [formGroup]="reactiveForm">
     <div formGroupName="personalDetails">
