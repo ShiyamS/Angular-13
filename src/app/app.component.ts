@@ -5,6 +5,7 @@ import { StudentsService } from './services/students.service';
 import { Student } from './student';
 import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgFor } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -209,7 +210,7 @@ export class AppComponent implements OnInit {
     this.reactiveForm = new FormGroup({
       personalDetails: new FormGroup({
         name: new FormControl(null, [Validators.required, this.errorCheck]),
-        email: new FormControl(null, [Validators.required, Validators.email, this.errorCheck]),
+        email: new FormControl(null, [Validators.required, Validators.email, this.errorCheck], this.checkEmailValidator),
       }),
       phone: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
       address: new FormControl(null),
@@ -237,5 +238,18 @@ export class AppComponent implements OnInit {
     }
     return null;
 
+  }
+
+  checkEmailValidator(control: FormControl): Promise<any> | Observable<any> {
+    let response = new Promise((resolve) => {
+      if (control.value === 'shiyams315@gmail.com') {
+        setTimeout(() => {
+          resolve({ emailStatus: true })
+        }, 5000)
+      } else {
+        resolve(null)
+      }
+    })
+    return response;
   }
 }

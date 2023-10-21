@@ -93,9 +93,12 @@
       <label for="email">Email:</label>
       <input type="text" id="email" formControlName="email">
       <div>
-        <small
+        <!-- <small
           *ngIf="!reactiveForm.get('personalDetails.email')?.valid && reactiveForm.get('personalDetails.email')?.touched ">Lastname
-          is a required field</small>
+          is a required field</small> -->
+        <small *ngIf="reactiveForm.get('personalDetails.email').errors?.['emailStatus']">The Entered email is alredy
+          registered
+          !</small>
       </div>
       <!-- <div>
         <small *ngIf="lname.invalid && lname.touched">Lastname is a required field</small>
