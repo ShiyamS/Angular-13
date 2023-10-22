@@ -198,17 +198,17 @@
             <th>Price</th>
             <th></th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>iPhone</td>
-            <td>iPhone Pro 11</td>
-            <td>$1299</td>
+          <tr *ngFor="let product of allProducts; index as i">
+            <td>{{ i + 1}}</td>
+            <td>{{product.productName}}</td>
+            <td>{{product.productDesc}}</td>
+            <td>{{product.productPrice}}</td>
             <td><button class="btn-delete">Delete</button></td>
           </tr>
         </table>
         <hr>
         <div class="action-btn-container">
-          <button class="btn-fetch">Fetch Product</button>
+          <button class="btn-fetch" (click)="onProductFetch()">Fetch Product</button>
           <button class="btn-clear">Clear Product</button>
         </div>
       </div>
