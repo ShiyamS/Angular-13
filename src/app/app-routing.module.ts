@@ -9,10 +9,12 @@ import { CourseComponent } from './courses/course/course/course.component';
 import { CourseGuardService } from './services/course-guard.service';
 import { CanDeactiveGuardService } from './services/candeactivate-guard.service';
 import { CourseResolverService } from './services/course-resolve.service';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   // { path: '', component: HomeComponent },
-  { path: '', redirectTo: 'Home', pathMatch: 'full' },
+  { path: '', redirectTo: 'App', pathMatch: 'full' },
+  { path: 'App', component: AppComponent },
   { path: 'Home', component: HomeComponent },
   { path: 'Courses', component: CoursesComponent, resolve: { courses: CourseResolverService } },
   // { path: 'Courses/Course/:id', component: CourseComponent },

@@ -18,6 +18,7 @@ import { CourseResolverService } from './services/course-resolve.service';
 import { StudentsService } from './services/students.service';
 import { Percentage } from './percentage.pipe';
 import { Filter } from './filter.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { Filter } from './filter.pipe';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
+
   ],
   providers: [CoursesService, CourseGuardService, AuthService, CanDeactiveGuardService, CourseResolverService, StudentsService],
   bootstrap: [AppComponent]

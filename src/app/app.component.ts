@@ -6,6 +6,7 @@ import { Student } from './student';
 import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -164,11 +165,11 @@ export class AppComponent implements OnInit {
 
   // }
 
-  gender: any = [
-    { id: 1, value: 'Male' },
-    { id: 2, value: 'Female' },
-    { id: 3, value: 'Other' },
-  ]
+  // gender: any = [
+  //   { id: 1, value: 'Male' },
+  //   { id: 2, value: 'Female' },
+  //   { id: 3, value: 'Other' },
+  // ]
 
 
   // setDefaultValue() {
@@ -204,65 +205,85 @@ export class AppComponent implements OnInit {
 
   //  Reactive Form
 
-  reactiveForm!: FormGroup;
-  statusChange;
+  // reactiveForm!: FormGroup;
+  // statusChange;
 
-  ngOnInit() {
-    this.reactiveForm = new FormGroup({
-      personalDetails: new FormGroup({
-        name: new FormControl(null, [Validators.required, this.errorCheck]),
-        email: new FormControl(null, [Validators.required, Validators.email, this.errorCheck], this.checkEmailValidator),
-      }),
-      phone: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
-      address: new FormControl(null),
-      message: new FormControl('Random Message'),
-      gen: new FormControl('Male'),
-      skills: new FormArray([
-        new FormControl(null, Validators.required),
-      ])
-    })
+  // ngOnInit() {
+  //   this.reactiveForm = new FormGroup({
+  //     personalDetails: new FormGroup({
+  //       name: new FormControl(null, [Validators.required, this.errorCheck]),
+  //       email: new FormControl(null, [Validators.required, Validators.email, this.errorCheck], this.checkEmailValidator),
+  //     }),
+  //     phone: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
+  //     address: new FormControl(null),
+  //     message: new FormControl('Random Message'),
+  //     gen: new FormControl('Male'),
+  //     skills: new FormArray([
+  //       new FormControl(null, Validators.required),
+  //     ])
+  //   })
 
-    // Value chnage for a specific Form Control
-    // this.reactiveForm.get('personalDetails.name').valueChanges.subscribe((value) => {
-    //   console.log(value);
-    // })
+  // Value chnage for a specific Form Control
+  // this.reactiveForm.get('personalDetails.name').valueChanges.subscribe((value) => {
+  //   console.log(value);
+  // })
 
-    // Status Chnages of a Form If its valid or In valid !
+  // Status Chnages of a Form If its valid or In valid !
 
-    this.reactiveForm.statusChanges.subscribe((value) => {
-      // console.log(value);
-      this.statusChange = value;
-    })
-  }
+  // this.reactiveForm.statusChanges.subscribe((value) => {
+  // console.log(value);
+  //     this.statusChange = value;
+  //   })
+  // }
 
-  onSubmit() {
-    console.log(this.reactiveForm);
-  }
+  // onSubmit() {
+  //   console.log(this.reactiveForm);
+  // }
 
-  addSkill() {
-    (<FormArray>this.reactiveForm.get('skills')).push(new FormControl(null, Validators.required))
-  }
+  // addSkill() {
+  //   (<FormArray>this.reactiveForm.get('skills')).push(new FormControl(null, Validators.required))
+  // }
 
   // Custom Validators
-  errorCheck(control: FormControl) {
+  // errorCheck(control: FormControl) {
 
-    if (control.value != null && control.value.indexOf(' ') != -1) {
-      return { spaceAllowed: true }
-    }
-    return null;
+  //   if (control.value != null && control.value.indexOf(' ') != -1) {
+  //     return { spaceAllowed: true }
+  //   }
+  //   return null;
+
+  // }
+
+  // checkEmailValidator(control: FormControl): Promise<any> | Observable<any> {
+  //   let response = new Promise((resolve) => {
+  //     if (control.value === 'shiyams315@gmail.com') {
+  //       setTimeout(() => {
+  //         resolve({ emailStatus: true })
+  //       }, 5000)
+  //     } else {
+  //       resolve(null)
+  //     }
+  //   })
+  //   return response;
+  // }
+  @ViewChild('createProduct') createProduct: NgForm;
+
+  constructor(private http: HttpClient) {
 
   }
 
-  checkEmailValidator(control: FormControl): Promise<any> | Observable<any> {
-    let response = new Promise((resolve) => {
-      if (control.value === 'shiyams315@gmail.com') {
-        setTimeout(() => {
-          resolve({ emailStatus: true })
-        }, 5000)
-      } else {
-        resolve(null)
-      }
-    })
-    return response;
+  ngOnInit() {
+
+  }
+
+
+  addProduct(data: { productName: string, productDesc: string, productPrice: string }) {
+    const headersHttp = new HttpHeaders({ 'myHeaders': 'Manage Products' });
+    this.http.post('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json', data, { headers: headersHttp }).subscribe((res) => {
+      console.log(res);
+      this.createProduct.reset();
+
+    });
+
   }
 }

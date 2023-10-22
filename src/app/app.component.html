@@ -28,7 +28,7 @@
     <app-about id="About"></app-about>
     <app-contact id="Contact"></app-contact>
     <app-courses id="Courses"></app-courses> -->
-<!-- <router-outlet></router-outlet> -->
+
 
 <!-- <div class="spinner" *ngIf="spinnerDiv"></div> -->
 
@@ -71,10 +71,10 @@
 
 <!-- Template From -->
 
-<div class="form-container myForm" [ngClass]="statusChange">
+<!-- <div class="form-container myForm" [ngClass]="statusChange">
   <h2>Example Form</h2>
   <form (ngSubmit)="onSubmit()" [formGroup]="reactiveForm">
-    <div formGroupName="personalDetails">
+    < formGroupName="personalDetails">
       <label for="name">Name:</label>
       <input type="text" id="name" formControlName="name">
       <div>
@@ -90,28 +90,28 @@
         <small *ngIf="fname.invalid && fname.touched">Firstname is a required field</small>
       </div> -->
 
-      <label for="email">Email:</label>
+<!-- <label for="email">Email:</label>
       <input type="text" id="email" formControlName="email">
-      <div>
-        <!-- <small
+      <div> -->
+<!-- <small
           *ngIf="!reactiveForm.get('personalDetails.email')?.valid && reactiveForm.get('personalDetails.email')?.touched ">Lastname
           is a required field</small> -->
-        <small *ngIf="reactiveForm.get('personalDetails.email').errors?.['emailStatus']">The Entered email is alredy
+<!-- <small *ngIf="reactiveForm.get('personalDetails.email').errors?.['emailStatus']">The Entered email is alredy
           registered
           !</small>
-      </div>
-      <!-- <div>
+      </div> -->
+<!-- <div>
         <small *ngIf="lname.invalid && lname.touched">Lastname is a required field</small>
       </div> -->
 
-      <!-- <div>
+<!-- <div>
         <small *ngIf="personalDetails.invalid && personalDetails.touched">Some of the field value are not
           updated.</small>
       </div> -->
 
-      <!-- <button (click)="setDefaultValue()">Set default value</button> -->
+<!-- <button (click)="setDefaultValue()">Set default value</button> -->
 
-    </div>
+<!-- </div>
     <label for="phone">Phone:</label>
     <input type="text" id="phone" formControlName="phone">
 
@@ -141,7 +141,7 @@
   </form>
 </div>
 
-<!-- [disabled]="!reactiveForm.valid" -->
+[disabled]="!reactiveForm.valid" -->
 
 <!-- <div class="form-container">
   <p><b>Name : </b>{{name}}</p><br>
@@ -151,3 +151,67 @@
   <p><b>Message : </b>{{message}}</p><br>
   <p><b>Gender : </b>{{gen}}</p>
 </div><b> </b> -->
+
+
+<div class="main-area">
+  <div class="content-area">
+    <div class="header">
+      <h1>Manage Products</h1>
+      <hr>
+    </div>
+    <div class="container">
+      <!--Add product form-->
+      <div class="form-area">
+        <h3>Create Product</h3>
+        <form (ngSubmit)="addProduct(createProduct.value)" #createProduct="ngForm">
+          <label>Procuct Name</label>
+          <input type="text" name="productName" required ngModel #productName="ngModel">
+          <ng-container *ngIf="productName.touched && productName.invalid  ">
+            <small>Product Name is a required field.</small>
+          </ng-container><br>
+
+
+          <label>Procuct Description</label>
+          <input type="text" name="productDesc" required ngModel #productDesc="ngModel">
+          <ng-container *ngIf="productDesc.touched && productDesc.invalid  ">
+            <small>Product Description is a required field.</small>
+          </ng-container><br>
+
+          <label>Product Price</label>
+          <input type="text" name="productPrice" required ngModel #productPrice="ngModel">
+          <ng-container *ngIf="productPrice.touched && productPrice.invalid ">
+            <small>Product Price is a required field.</small>
+          </ng-container><br>
+
+          <input type="submit" value="Add Product">
+        </form>
+      </div>
+
+      <!--Display product area-->
+      <div class="product-display-area">
+        <h3>All Products</h3>
+        <table id="products">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>iPhone</td>
+            <td>iPhone Pro 11</td>
+            <td>$1299</td>
+            <td><button class="btn-delete">Delete</button></td>
+          </tr>
+        </table>
+        <hr>
+        <div class="action-btn-container">
+          <button class="btn-fetch">Fetch Product</button>
+          <button class="btn-clear">Clear Product</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
