@@ -1,3 +1,4 @@
+import { ProductService } from './services/product.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
@@ -277,7 +278,7 @@ export class AppComponent implements OnInit {
   allProducts: Product[] = [];
   isFetching = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private ProductService: ProductService) { }
   ngOnInit() {
     this.getProducts();
   }
@@ -287,24 +288,16 @@ export class AppComponent implements OnInit {
   }
 
   addProduct(data: { productName: string, productDesc: string, productPrice: string }) {
-    const headersHttp = new HttpHeaders({ 'myHeaders': 'Manage Products' });
-    this.http.post<{ name: string }>('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json', data, { headers: headersHttp }).subscribe((res) => {
-      console.log(res);
-      this.createProduct.reset();
-
-    });
+    this.ProductService.createProduct(data).subscribe((res) => {
+      if (res) {
+        this.createProduct.reset();
+      }
+    })
 
   }
   private getProducts() {
     this.isFetching = true;
-    this.http.get<{ [key: string]: Product }>('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json')
-      .pipe(map((res) => {
-        let products = [];
-        for (const key in res) {
-          products.push({ ...res[key], id: key })
-        }
-        return products;
-      }))
+    this.ProductService.allProducts()
       .subscribe((products) => {
         console.log(products);
         this.allProducts = products;
@@ -314,15 +307,11 @@ export class AppComponent implements OnInit {
   }
 
   deleteAProduct(productId: string) {
-    const url = `https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products/${productId}.json`;
-    console.log(url)
-    this.http.delete(url).subscribe((res) => {
-      console.log(res, "Product Deleted !")
-    })
+    this.ProductService.deleteAProd(productId)
   }
 
   deleteAllProducts() {
-    this.http.delete('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json').subscribe();
+    this.ProductService.deleteAllProd();
   }
 
 
