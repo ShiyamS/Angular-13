@@ -275,6 +275,8 @@ export class AppComponent implements OnInit {
   // }
   @ViewChild('createProduct') createProduct: NgForm;
   allProducts: Product[] = [];
+  isFetching = false;
+
   constructor(private http: HttpClient) { }
   ngOnInit() {
     this.getProducts();
@@ -294,6 +296,7 @@ export class AppComponent implements OnInit {
 
   }
   private getProducts() {
+    this.isFetching = true;
     this.http.get<{ [key: string]: Product }>('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json')
       .pipe(map((res) => {
         let products = [];
@@ -306,7 +309,23 @@ export class AppComponent implements OnInit {
         console.log(products);
         this.allProducts = products;
         console.log("all Prod", this.allProducts)
+        this.isFetching = false;
       })
   }
+
+  deleteAProduct(productId: string) {
+    const url = `https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products/${productId}.json`;
+    console.log(url)
+    this.http.delete(url).subscribe((res) => {
+      console.log(res, "Product Deleted !")
+    })
+  }
+
+  deleteAllProducts() {
+    this.http.delete('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json').subscribe();
+  }
+
+
+
 }
 
