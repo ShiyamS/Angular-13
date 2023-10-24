@@ -172,18 +172,19 @@
 
 
           <label>Procuct Description</label>
-          <input type="text" name="productDesc" required ngModel #productDesc="ngModel">
+          <input type="text" name="productDesc" required ngModel ngModel #productDesc="ngModel">
           <ng-container *ngIf="productDesc.touched && productDesc.invalid  ">
             <small>Product Description is a required field.</small>
           </ng-container><br>
 
           <label>Product Price</label>
-          <input type="text" name="productPrice" required ngModel #productPrice="ngModel">
+          <input type="text" name="productPrice" required ngModel ngModel #productPrice="ngModel">
           <ng-container *ngIf="productPrice.touched && productPrice.invalid ">
             <small>Product Price is a required field.</small>
           </ng-container><br>
 
-          <input type="submit" value="Add Product">
+
+          <input type="submit" value="{{toUpdate ? 'Update Product':'Add Product' }}">
         </form>
       </div>
 
@@ -210,7 +211,9 @@
               <td>{{product.productName}}</td>
               <td>{{product.productDesc}}</td>
               <td>{{product.productPrice}}</td>
-              <td><button class="btn-delete" (click)="deleteAProduct(product.id)">Delete</button></td>
+              <td><button class="btn-delete" (click)="deleteAProduct(product.id)">Delete</button>
+                <button class="btn-update" (click)="updateAProduct(product.id)">Update</button>
+              </td>
             </tr>
           </ng-template>
         </table>

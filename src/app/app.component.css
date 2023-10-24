@@ -184,7 +184,8 @@ select {
   box-sizing: border-box;
 }
 
-input[type="submit"] {
+input[type="submit"],
+input[type="button"] {
   width: 30%;
   background-color: #48c9b0;
   color: white;
@@ -235,6 +236,11 @@ button {
 .btn-delete {
   background-color: #fb5027;
   color: white;
+}
+
+.btn-update {
+  background-color: #f7fb27;
+  color: rgb(11, 11, 11);
 }
 
 .btn-fetch {

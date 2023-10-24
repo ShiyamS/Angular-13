@@ -48,4 +48,10 @@ export class ProductService {
   deleteAllProd() {
     this.http.delete('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json').subscribe();
   }
+
+  // Update a Product
+  updateAProd(id: string, data) {
+    const url = `https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products/${id}.json`;
+    return this.http.put(url, data);
+  }
 }

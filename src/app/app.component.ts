@@ -276,7 +276,15 @@ export class AppComponent implements OnInit {
   // }
   @ViewChild('createProduct') createProduct: NgForm;
   allProducts: Product[] = [];
+
+  @ViewChild('createProduct') form: NgForm;
+  productName1 = '';
+  productDesc1 = '';
+  productPrice1 = '';
+  productId = '';
+
   isFetching = false;
+  toUpdate = false;
 
   constructor(private http: HttpClient, private ProductService: ProductService) { }
   ngOnInit() {
@@ -288,11 +296,23 @@ export class AppComponent implements OnInit {
   }
 
   addProduct(data: { productName: string, productDesc: string, productPrice: string }) {
-    this.ProductService.createProduct(data).subscribe((res) => {
-      if (res) {
-        this.createProduct.reset();
-      }
-    })
+
+    if (!this.toUpdate) {
+      this.ProductService.createProduct(data).subscribe((res) => {
+        if (res) {
+          this.createProduct.reset();
+        }
+      })
+
+    } else {
+      this.ProductService.updateAProd(this.productId, data).subscribe((res) => {
+        if (res) {
+          this.toUpdate = false;
+          this.createProduct.reset();
+        }
+      })
+    }
+
 
   }
   private getProducts() {
@@ -314,7 +334,17 @@ export class AppComponent implements OnInit {
     this.ProductService.deleteAllProd();
   }
 
-
+  updateAProduct(productId: string) {
+    this.productId = productId;
+    const currentProduct = this.allProducts.find((product) => { return product.id === productId });
+    console.log(this.form)
+    this.form.setValue({
+      productDesc: currentProduct.productDesc,
+      productName: currentProduct.productName,
+      productPrice: currentProduct.productPrice
+    });
+    this.toUpdate = true;
+  }
 
 }
 
