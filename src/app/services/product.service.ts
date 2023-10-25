@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Subject, catchError, map, throwError } from 'rxjs';
 
@@ -25,7 +25,12 @@ export class ProductService {
 
   // To get all Products
   allProducts() {
-    return this.http.get<{ [key: string]: Product }>('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json')
+
+    let params = new HttpParams()
+      .set('print', 'pretty')
+      .set('pageNum', '1');
+    return this.http.get<{ [key: string]: Product }>('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json',
+      { params: params })
       .pipe(map((res) => {
         let products = [];
         for (const key in res) {
@@ -49,7 +54,11 @@ export class ProductService {
     // this.http.delete(url).subscribe((res: any) => {
     //   console.log(res, "Product Deleted !")
     // })
-    this.http.delete(url).subscribe({
+
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('my-header', 'test')
+    this.http.delete(url, { headers: headers }).subscribe({
       next: (res) => console.log(res, 'Product Deleted !'),
       error: (error) => this.errorDeletingAProduct.error(error.message)
     })
@@ -58,7 +67,10 @@ export class ProductService {
 
   // Delete all Product
   deleteAllProd() {
-    this.http.delete('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json').subscribe();
+    const headers = new HttpHeaders()
+      .append('MyHeader', ' random header')
+      .append('Accept', 'application/json')
+    this.http.delete('https://angularhttprequest-638f4-default-rtdb.firebaseio.com/products.json', { headers: headers }).subscribe();
   }
 
   // Update a Product
