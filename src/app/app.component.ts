@@ -1,12 +1,12 @@
 import { ProductService } from './services/product.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { StudentsService } from './services/students.service';
 import { Student } from './student';
 import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgFor } from '@angular/common';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map, takeUntil } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 interface Product {
@@ -21,7 +21,7 @@ interface Product {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   // students!: Student[];
   // filteredStudents!: Student[];
@@ -278,17 +278,23 @@ export class AppComponent implements OnInit {
   allProducts: Product[] = [];
 
   @ViewChild('createProduct') form: NgForm;
-  productName1 = '';
-  productDesc1 = '';
-  productPrice1 = '';
   productId = '';
 
   isFetching = false;
   toUpdate = false;
+  errorMessage: string = null;
+
+  destroy$ = new Subject<boolean>();
 
   constructor(private http: HttpClient, private ProductService: ProductService) { }
   ngOnInit() {
     this.getProducts();
+
+    this.ProductService.errorDeletingAProduct
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        error: (message) => this.errorMessage = message
+      })
   }
 
   onProductFetch() {
@@ -301,6 +307,7 @@ export class AppComponent implements OnInit {
       this.ProductService.createProduct(data).subscribe((res) => {
         if (res) {
           this.createProduct.reset();
+          this.getProducts();
         }
       })
 
@@ -309,6 +316,7 @@ export class AppComponent implements OnInit {
         if (res) {
           this.toUpdate = false;
           this.createProduct.reset();
+          this.getProducts();
         }
       })
     }
@@ -318,11 +326,21 @@ export class AppComponent implements OnInit {
   private getProducts() {
     this.isFetching = true;
     this.ProductService.allProducts()
-      .subscribe((products) => {
-        console.log(products);
-        this.allProducts = products;
-        console.log("all Prod", this.allProducts)
-        this.isFetching = false;
+      // .subscribe((products) => {
+      //   console.log(products);
+      //   this.allProducts = products;
+      //   console.log("all Prod", this.allProducts)
+      //   this.isFetching = false;
+      // }, (error) => {
+      //   this.errorMessage = error.message;
+      // })
+      .subscribe({
+        next: (products: Product[]) => {
+          this.allProducts = products;
+          this.isFetching = false;
+          console.log(products);
+        },
+        error: (error) => this.errorMessage = error.message
       })
   }
 
@@ -346,5 +364,9 @@ export class AppComponent implements OnInit {
     this.toUpdate = true;
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }
 

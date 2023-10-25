@@ -202,20 +202,21 @@
           <tr *ngIf="allProducts.length < 1 && !isFetching;">
             <td colspan="5"> No data available !</td>
           </tr>
-          <tr *ngIf="isFetching; else allValue">
+          <tr *ngIf="isFetching && !errorMessage ">
             <td>Data Loading ....</td>
           </tr>
-          <ng-template #allValue>
-            <tr *ngFor="let product of allProducts; index as i">
-              <td>{{ i + 1}}</td>
-              <td>{{product.productName}}</td>
-              <td>{{product.productDesc}}</td>
-              <td>{{product.productPrice}}</td>
-              <td><button class="btn-delete" (click)="deleteAProduct(product.id)">Delete</button>
-                <button class="btn-update" (click)="updateAProduct(product.id)">Update</button>
-              </td>
-            </tr>
-          </ng-template>
+          <tr *ngIf="errorMessage">
+            <td colspan="5">{{errorMessage}}</td>
+          </tr>
+          <tr *ngFor="let product of allProducts; index as i">
+            <td>{{ i + 1}}</td>
+            <td>{{product.productName}}</td>
+            <td>{{product.productDesc}}</td>
+            <td>{{product.productPrice}}</td>
+            <td><button class="btn-delete" (click)="deleteAProduct(product.id)">Delete</button>
+              <button class="btn-update" (click)="updateAProduct(product.id)">Update</button>
+            </td>
+          </tr>
         </table>
         <hr>
         <div class="action-btn-container">
